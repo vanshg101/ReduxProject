@@ -1,12 +1,22 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
+const loadFromLocalStorage=()=>{
+  try{
+    const data=localStorage.getItem("todoKey")
+    return data?JSON.parse(data):[]
+  }
+  catch{
+    return []
+  }
+}
 const initialState = {
-  todos: [
-    {
-      id: 1,
-      text: "hellow",
-    },
-  ],
+  todos:loadFromLocalStorage()
+  //  [
+  //   {
+  //     id: 1,
+  //     text: "hellow",
+  //   },
+  // ],
 };
 export const todoSlice = createSlice({
   name: "todo",

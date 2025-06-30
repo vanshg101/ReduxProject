@@ -1,10 +1,15 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
 import AddTodo from './components/AddTodo'
 import Todos from './components/Todos'
+import { useSelector } from 'react-redux'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const todos=useSelector((state)=>state.todos)
+  
+  useEffect(()=>{
+    localStorage.setItem("todoKey",JSON.stringify(todos))
+  },[todos])
+  
   return (
     <>
     <AddTodo/>
