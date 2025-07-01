@@ -7,7 +7,6 @@ function Todos() {
   const todos = useSelector((state) => state.todos);
   const [editmsg, setEditmsg] = useState("");
   const [editId, setEditId] = useState(null);
-  const [completed,setCompleted]=useState(false)
 
   const editTodo = (todo) => {
     if (todo.id == editId) {
