@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeTodo, updateTodo } from "../feature/todo/todoSlice";
+import { removeTodo, updateTodo,toggleStatue } from "../feature/todo/todoSlice";
 
 function Todos() {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos);
   const [editmsg, setEditmsg] = useState("");
   const [editId, setEditId] = useState(null);
+  const [completed,setCompleted]=useState(false)
 
   const editTodo = (todo) => {
     if (todo.id == editId) {
@@ -18,16 +19,25 @@ function Todos() {
       setEditmsg(todo.text);
     }
   };
+  const toggle=(todo)=>{
+    dispatch(toggleStatue(todo.id))
+    // console.log(todo.status)
+  }
 
   return (
     <>
-      <div>Todos</div>
+      
       <ul className="list-none">
         {todos.map((todo) => (
           <li
-            className="mt-4 flex justify-between items-center bg-zinc-800 px-4 py-2 rounded"
+            className={`mt-4 flex justify-between items-center ${todo.status ? "bg-green-500" :"bg-zinc-800"}  px-4 py-2 rounded`}
             key={todo.id}
           >
+            <input
+             type="checkBox"
+             checked={todo.status}
+             onChange={()=>toggle(todo)}
+             />
             {editId === todo.id ? (
               <input
                 type="text"
